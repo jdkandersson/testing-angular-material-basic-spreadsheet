@@ -1,0 +1,18 @@
+<!-- order-table.component.html -->
+<ng-container *ngIf="orderTable.rowLabels.length">
+  <table mat-table [dataSource]="orderTable.rowLabels" class="mat-elevation-z8">
+    <ng-container [matColumnDef]="header" *ngFor="let header of headers">
+      <th mat-header-cell *matHeaderCellDef>
+        <ng-container *ngIf="header === productHeader">{{ header }}</ng-container>
+        <ng-container *ngIf="header !== productHeader">{{ header | date }}</ng-container>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <ng-container *ngIf="header === productHeader">{{ element }}</ng-container>
+        <ng-container *ngIf="header !== productHeader"><app-order [order]="orderTable.orderMap[header][element]"></app-order></ng-container>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="headers"></tr>
+    <tr mat-row *matRowDef="let row; columns: headers;"></tr>
+  </table>
+</ng-container>
